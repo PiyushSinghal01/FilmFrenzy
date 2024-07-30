@@ -24,32 +24,43 @@ const Login = () => {
             const quer = query(usersRef, where('mobile', '==', login.mobile))
             const querySnapshot = await getDocs(quer);
 
-            querySnapshot.forEach((doc) => {
-                const _data = doc.data();
-                const isUser = bcrypt.compareSync(login.password, _data.password);
-
-                if(isUser)
-                {
-                    swal({
-                        title: "Logged In",
-                        icon: "success",
-                        buttons: false,
-                        timer: 2000
-                    })
-                    useAppState.setLogin(true);
-                    useAppState.setUserName(_data.name);
-                    navigate("/");
-                }
-                else{
-                    swal({
-                        title: "Invalid Credentials",
-                        icon: "error",
-                        buttons: false,
-                        timer: 2000
-                    })
-                }
-            })
-        } 
+            if(querySnapshot.empty)
+            {
+                swal({
+                    title: "Invalid Credentials",
+                    icon: "error",
+                    buttons: false,
+                    timer: 2000
+                })
+            }
+            else{
+                querySnapshot.forEach((doc) => {
+                    const _data = doc.data();
+                    const isUser = bcrypt.compareSync(login.password, _data.password);
+    
+                    if(isUser)
+                    {
+                        swal({
+                            title: "Logged In",
+                            icon: "success",
+                            buttons: false,
+                            timer: 2000
+                        })
+                        useAppState.setLogin(true);
+                        useAppState.setUserName(_data.name);
+                        navigate("/");
+                    }
+                    else{
+                        swal({
+                            title: "Invalid Credentials",
+                            icon: "error",
+                            buttons: false,
+                            timer: 2000
+                        })
+                    }
+                })
+            } 
+        }
         catch(error){
             console.log(error);
         }
