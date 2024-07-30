@@ -39,6 +39,7 @@ const AddMovie = () => {
             description : "",
             image : ""
           })
+          navigate('/');
       }
       else{
         navigate('/login');

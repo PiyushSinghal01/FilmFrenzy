@@ -81,7 +81,7 @@ const Login = () => {
                 ></input>
                 
                 <button onClick={ verifyUser } className="flex mx-auto text-white bg-green-600 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
-                    {loading ? <TailSpin height={25} color="white"></TailSpin> : "Add"}
+                    {loading ? <TailSpin height={25} color="white"></TailSpin> : "Log-In"}
                 </button>
 
                 <p className="mt-4">Do not have an account?<Link to={"/signup"}><span className="text-blue-500"> Sign Up </span></Link></p>
